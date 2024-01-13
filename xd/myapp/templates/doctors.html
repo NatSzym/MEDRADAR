@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}
+    Lekarze
+{% endblock %}
+{% block content %}
+    <div style="background-color: #f7f7f7; padding: 20px; text-align: center;">
+        <h1 style="color: #3498db;">Lekarze</h1>
+
+        <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; background-color: white; margin-bottom: 20px; text-align: left;">
+            <label for="specialization">Wybierz specjalizację:</label>
+            <select id="specialization" name="specialization">
+                <option value="">Wszystkie</option>
+                {% for specialization in specializations %}
+                    <option value="{{ specialization }}">{{ specialization }}</option>
+                {% endfor %}
+            </select>
+
+            <ul id="doctor-list">
+                {% for doctor in doctors %}
+    <li class="doctor" data-specialization="{{ doctor.specialization }}">
+        {{ doctor.first_name }} {{ doctor.last_name }}
+        <ul>
+            <li>Specjalizacja: {{ doctor.specialization }}</li>
+            <li>Dni pracy: {{ doctor.get_working_days_display }}
+                {% for day in doctor.working_days.all %}
+                    {{ day.day }},
+                {% endfor %}
+            </li>
+            <li>Godziny pracy: {{ doctor.working_hours_start|time:"H:i" }} - {{ doctor.working_hours_end|time:"H:i" }}</li>
+        </ul>
+    </li>
+{% endfor %}
+
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Skrypt do filtrowania lekarzy po specjalizacji
+        document.getElementById('specialization').addEventListener('change', function () {
+            var selectedSpecialization = this.value;
+            var doctorList = document.querySelectorAll('.doctor');
+
+            doctorList.forEach(function (doctor) {
+                var doctorSpecialization = doctor.getAttribute('data-specialization');
+                if (selectedSpecialization === '' || selectedSpecialization === doctorSpecialization) {
+                    doctor.style.display = 'list-item';
+                } else {
+                    doctor.style.display = 'none';
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+    Formularz
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+	<div class="container">
+        <h1 style="color: #3498db;">Formularz z danymi</h1>
+	{% if submitted %}
+			<div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Twoje dane zostały zapisane!</h4>
+        <p>Niżej przedstawiliśmy Twoje dane. Jeżeli coś się nie zgadza, proszę zadzwoń do nas lub napisz maila:</p>
+        <hr>
+        <p class="mb-0">Telefon: 509 621 007 <br> Mail: przychodnia@wp.pl</p>
+      </div>
+			<div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Pacjent: {{ patient.first_name }} {{ patient.last_name }}</h5>
+          <p class="card-text">Email: {{ patient.email }}</p>
+          <p class="card-text">PESEL: {{ patient.pesel }}</p>
+          <p class="card-text">Data urodzenia: {{ patient.birth_date }}</p>
+          <p class="card-text">Płeć: {{ patient.get_gender_display }}</p>
+        </div>
+      </div>
+	{% else %}
+		<p>W tej części proszę abyś uzupełnił swoje dane jako pacjent. Dzięki temu znajdziesz się w naszej bazie pacjentów i będziesz mógł zapisywać się na badania. Do zobaczenia na wizycie!<br>
+        Pamiętaj, że PESEL składa się tylko z cyfr! Jeżeli wpiszesz niedozowolony znak lub pomylisz się w numerze PESEL i wpiszesz już istniejący w bazie - formularz zostanie zwrócony. Jeżeli Twoje dane nie zostały zapisane wpisz je jeszcze raz uważnie. W razie problemów skonatkuj się z nami.</p>
+		<form action="" method=POST enctype="multipart/form-data" class="needs-validation" novalidate>
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button class="btn btn-primary" type="submit">Submit</button>
+		</form>
+	{% endif %}
+	</div>
+{% endif %}
+{% endblock %}

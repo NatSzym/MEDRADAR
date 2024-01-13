@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}
+    Dodaj wizytę
+{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <center>
+            <div style="background-color: #f7f7f7; padding: 20px; text-align: center;">
+                <h1 style="color: #3498db;">Dodaj wizytę</h1>
+                <br/><br/>
+                {% if submitted %}
+                    <div style="background-color: #f7f7f7; padding: 20px; text-align: center;">
+                        <h1 style="color: #3498db;">Twoja wizyta została zarezerwowana!!!</h1>
+                    </div>
+                {% else %}
+                    <form id="appointment-form" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </form>
+                {% endif %}
+            </div>
+        </center>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+    $('#id_specialization').change(function() {
+        var specialization_id = $(this).val();
+        $.ajax({
+            url: '{% url "get_doctors" %}',
+            data: {'specialization_id': specialization_id},
+            dataType: 'json',
+            success: function(data) {
+                var options = '<option value="">---------</option>';
+                for (var i = 0; i < data.doctors.length; i++) {
+                    var doctor = data.doctors[i];
+                    options += '<option value="' + doctor[0] + '">' + doctor[1] + ' ' + doctor[2] + '</option>';
+                }
+                $('#id_doctor').html(options);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Błąd żądania AJAX: " + textStatus, errorThrown);
+            }
+        });
+    });
+
+    $('#id_date').change(function() {
+        var doctor_id = $('#id_doctor').val();
+        var date = $(this).val();
+        if (doctor_id && date) {
+            $.ajax({
+                url: '{% url "get_available_times" %}',
+                data: {'doctor_id': doctor_id, 'date': date},
+                dataType: 'json',
+                success: function(data) {
+                    var options = '<option value="">---------</option>';
+                    for (var i = 0; i < data.available_times.length; i++) {
+    options += '<option value="' + data.available_times[i] + '">' + data.available_times[i] + '</option>';
+}
+                    $('#id_time').html(options);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Błąd żądania AJAX: " + textStatus, errorThrown);
+                }
+            });
+        }
+    });
+});
+        </script>
+    {% endif %}
+{% endblock %}
+

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+Patients{% endblock %}
+{% block content %}
+<h1>Patient List</h1>
+    <ul>
+        {% for patient in patients %}
+            <li>
+                {{ patient.first_name }} {{ patient.last_name }} - PESEL: {{ patient.pesel }}<br>
+
+                Birth Date: {{ patient.birth_date }}<br>
+                Gender: {{ patient.get_gender_display }}<br>
+                Doctor: {{ patient.doctor }}<br>
+                Commercial Visit: {% if patient.is_commercial %}Yes{% else %}No{% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

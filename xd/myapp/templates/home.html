@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+    MEDRADAR
+{% endblock %}
+
+{% block content %}
+    <style>
+        .today {
+            background-color: #3498db; /* Kolor tła dla dzisiejszej daty */
+            color: #fff; /* Kolor tekstu dla dzisiejszej daty */
+            border-radius: 50%; /* Zaokrąglenie kształtu dla efektu "koła" */
+            padding: 5px; /* Dodatkowy padding dla lepszego wyglądu */
+        }
+    </style>
+
+    <div style="background-color: #f7f7f7; padding: 20px; text-align: center;">
+        <h1 style="color: #3498db;">Dzień dobry, {{ name }}!</h1>
+        <p style="font-size: 18px; color: #555; margin-bottom: 20px;">
+            Dbaj o swoje zdrowie. Cieszymy się, że należysz do naszej przychodni. Razem zadbamy, aby nie tylko dziś było cudowne, ale i przyszłość! Bądź zdrów!
+        </p>
+        <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; background-color: white;">
+            <h2 style="color: #3498db; margin-bottom: 20px;">Twój kalendarz z wizytami</h2>
+            <div style="overflow-x: auto; display: flex; align-items: center; justify-content: center;">
+                {{ cal|safe }}
+            </div>
+            <div style="margin-top: 20px;">
+                <p style="font-size: 18px; color: #555; margin-bottom: 10px;">Dzisiaj jest {{ current_data }}.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+

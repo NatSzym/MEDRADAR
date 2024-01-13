@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}
+    Lista wizyt
+{% endblock %}
+{% block content %}
+    <div style="background-color: #f7f7f7; padding: 20px; text-align: center;">
+        <h1 style="color: #3498db;">Lista wizyt</h1>
+
+        <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; background-color: white; margin-bottom: 20px; text-align: left;">
+            <h2 style="color: #3498db; margin-bottom: 20px; text-align: center;">Oczekujące wizyty</h2>
+            <ul style="list-style-type: none; padding: 0;">
+                {% for appointment in appointments %}
+                    {% if appointment.date >= current_data %}
+                        <li style="margin-bottom: 10px;">
+                            Pacjent: {{ appointment.patient }}<br>
+                            Lekarz: {{ appointment.doctor }}<br>
+                            Data: {{ appointment.date }}<br>
+                            Komercyjna wizyta: {% if appointment.is_commercial %}Tak{% else %}Nie{% endif %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; background-color: white; text-align: left;">
+            <h2 style="color: #3498db; margin-bottom: 20px; text-align: center;">Zrealizowane wizyty</h2>
+            <ul style="list-style-type: none; padding: 0;">
+                {% for appointment in appointments %}
+                    {% if appointment.date < current_data %}
+                        <li style="margin-bottom: 10px;">
+                            Pacjent: {{ appointment.patient }}<br>
+                            Lekarz: {{ appointment.doctor }}<br>
+                            Data: {{ appointment.date }}<br>
+                            Komercyjna wizyta: {% if appointment.is_commercial %}Tak{% else %}Nie{% endif %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
