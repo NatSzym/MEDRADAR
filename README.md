@@ -24,6 +24,3 @@ Pełna dokumentacja z testami jest dostępna w pliku PDF o nazwie "Dokumentacja"
 ## Kontakt
 Jeśli masz jakiekolwiek pytania lub sugestie, prosimy o kontakt przez GitHub Issues.
 
----
-
-Feel free to customize each section according to the specifics of your project. This template provides a structure that you can fill in with the relevant details of MEDRADAR. If you need further customization or additional sections, let me know!
