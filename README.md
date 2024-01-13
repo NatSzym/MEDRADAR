@@ -19,7 +19,7 @@ Licencja Freeware na to oprogramowanie, nazwane MEDRADAR, umożliwia jego bezpł
 - Kledzik Mieczysław.
 
 ## Dokumentacja
-Pełna dokumentacja z testami jest dostępna w pliku PDF o nazwie "Dokumentacja".  
+Pełna dokumentacja z testami jest dostępna w pliku o nazwie "Dokumentacja".  
 
 ## Kontakt
 Jeśli masz jakiekolwiek pytania lub sugestie, prosimy o kontakt przez GitHub Issues.
